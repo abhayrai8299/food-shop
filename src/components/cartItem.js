@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer,toast} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -10,14 +8,13 @@ import {
 import ProductPrice from "./ProductPrice";
 import { NavLink } from "react-router-dom";
 
-const CartItem = ({setProductItem}) => {
+const CartItem = ({ setProductItem }) => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.cartreducer.carts);
   const prods = useSelector((state) => state.cartreducer.productList);
   const [quantity, setquantity] = useState(0);
   const addHandler = (item) => {
-    toast(`${item.rname} Item Quantity Increased Successfully`);
     prods.map((data) => {
       if (data.id === item.id) {
         data.qnty = data.qnty + 1;
@@ -27,8 +24,6 @@ const CartItem = ({setProductItem}) => {
     dispatch(ADD_TO_CART(item));
   };
   const delHandler = (id) => {
-    const item = prods.find((data) => data.id === id);
-    toast(`${item.rname} Removed Successfully`);
     prods.map((data) => {
       if (data.id === id) {
         data.qnty = data.qnty - 1;
@@ -37,7 +32,6 @@ const CartItem = ({setProductItem}) => {
     dispatch(REMOVE_FROM_CART(id));
   };
   const removeHandler = (item) => {
-    toast(`${item.rname} Item Quantity Decreased Successfully`);
     prods.map((data) => {
       if (data.id === item.id) {
         data.qnty = data.qnty - 1;
@@ -92,7 +86,7 @@ const CartItem = ({setProductItem}) => {
               );
             })}
           </div>
-          <ProductPrice data={data} quantity={quantity} setProductItem={setProductItem}/>
+          <ProductPrice data={data} quantity={quantity} setProductItem={setProductItem} />
         </>
       ) : (
         <>
@@ -106,17 +100,6 @@ const CartItem = ({setProductItem}) => {
           </div>
         </>
       )}
-              <ToastContainer
-        position="top-center"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </>
   );
 };
